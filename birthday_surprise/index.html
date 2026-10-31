@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+:root{--ink:#704957;--pink:#c85d7c;--rose:#f4dce3;--paper:#fffaf8;--mint:#e8f2e8}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 15% 15%,#fff 0 2px,transparent 3px),radial-gradient(circle at 85% 22%,#f5dce4 0 5px,transparent 6px),linear-gradient(135deg,#fff8f7,#f8e8ec 55%,#fff7f2);font-family:'DM Sans',sans-serif;color:var(--ink);overflow-x:hidden}
+body:before,body:after{content:"♡";position:fixed;color:#e8bdcb;font-size:28px;opacity:.45;pointer-events:none;animation:float 7s ease-in-out infinite}body:before{top:14%;left:8%}body:after{right:9%;bottom:13%;animation-delay:2s}
+@keyframes float{50%{transform:translateY(-18px) rotate(12deg)}}
+main{width:min(920px,94vw);min-height:92vh;margin:4vh auto;display:grid;place-items:center;padding:22px}
+.scene{display:none;width:100%;min-height:650px;max-width:760px;background:rgba(255,255,255,.76);border:1px solid #f1d9df;border-radius:26px;box-shadow:0 18px 55px #9c63731c;padding:clamp(22px,5vw,48px);text-align:center;position:relative;overflow:hidden}
+.scene.active{display:flex;flex-direction:column;align-items:center;justify-content:center;animation:appear .65s ease both}
+@keyframes appear{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+h1,h2{font-family:'Playfair Display',serif;font-weight:500;margin:0 0 16px}h1{font-size:clamp(2.1rem,6vw,3.5rem);font-style:italic;color:#a84f6b}h2{font-size:clamp(1.7rem,4vw,2.35rem);color:#a84f6b}
+p{line-height:1.75;max-width:560px;margin:8px auto 20px;color:#886b75}
+.kicker{letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:#bb8293;margin-bottom:15px}
+.btn{border:0;border-radius:999px;padding:13px 28px;background:linear-gradient(135deg,#c65376,#df8ba2);color:white;font:600 .95rem 'DM Sans';cursor:pointer;box-shadow:0 8px 20px #c6537633;transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px #c6537644}.btn.secondary{background:#fff;color:#b65d78;border:1px solid #edc8d3;box-shadow:none}.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.doodle{font-size:clamp(4rem,12vw,7rem);margin:8px 0 18px;filter:drop-shadow(0 10px 8px #9d667522)}
+.couple{font-size:5rem;letter-spacing:-18px;margin:10px 0 25px}
+.balloon-area{display:flex;justify-content:center;align-items:end;gap:clamp(8px,3vw,24px);min-height:260px;margin:20px 0}
+.balloon{width:clamp(54px,12vw,82px);height:clamp(76px,16vw,112px);border-radius:50% 50% 46% 46%;border:1px solid #ffffff99;position:relative;cursor:pointer;box-shadow:inset -10px -8px 0 #0000000c, inset 10px 8px 12px #ffffff77;animation:bob 2.4s ease-in-out infinite}
+.balloon:after{content:"";position:absolute;bottom:-8px;left:45%;border-left:6px solid transparent;border-right:6px solid transparent;border-top:10px solid currentColor}
+.balloon:before{content:"";position:absolute;width:1px;height:75px;background:#b99aa3;top:100%;left:50%}
+.balloon:nth-child(1){background:#f4a9bb;color:#f4a9bb}.balloon:nth-child(2){background:#b8c9ed;color:#b8c9ed;animation-delay:.3s}.balloon:nth-child(3){background:#e9c5a6;color:#e9c5a6;animation-delay:.6s}.balloon:nth-child(4){background:#c8dfc8;color:#c8dfc8;animation-delay:.9s}
+@keyframes bob{50%{transform:translateY(-13px) rotate(3deg)}}
+.balloon.popped{animation:pop .3s forwards;pointer-events:none}@keyframes pop{to{transform:scale(1.8);opacity:0}}
+.progress{font-size:.85rem;color:#b27a8b}
+.cake{font-size:clamp(6rem,18vw,10rem);margin:22px 0 10px;position:relative}.flame{display:inline-block;animation:flicker .7s infinite alternate;transform-origin:50% 90%}@keyframes flicker{to{transform:scale(.85) rotate(5deg);opacity:.7}}
+.cake.out .flame{opacity:0;transform:scale(.2);transition:.3s}
+.bouquet{font-size:clamp(7rem,20vw,11rem);filter:drop-shadow(0 12px 10px #a85b5b22);margin:20px 0}
+.note-wrap{perspective:1000px;margin:18px auto 25px;width:min(440px,90%)}
+.envelope{height:230px;position:relative;background:#f2dfb9;border-radius:8px;box-shadow:0 12px 30px #987c5522;cursor:pointer;overflow:hidden}
+.envelope:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,transparent 49.5%,#dfc99f 50%),linear-gradient(215deg,transparent 49.5%,#e8d4ac 50%);z-index:2}
+.flap{position:absolute;top:0;left:0;width:100%;height:58%;background:#f8ebce;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s;z-index:4}
+.heartseal{position:absolute;z-index:5;top:45%;left:calc(50% - 17px);font-size:34px;transition:.3s}
+.letter{background:#fffefa;border:1px solid #e6d9c8;border-radius:8px;padding:25px;text-align:left;box-shadow:0 12px 30px #775c4b1c;transform:translateY(80px);opacity:0;transition:all .8s;position:relative;z-index:1}
+.letter p{font-family:'Playfair Display',serif;font-size:1.02rem;color:#775966;line-height:1.9;margin:0 0 12px}
+.note-wrap.open .flap{transform:rotateX(180deg);z-index:0}.note-wrap.open .heartseal{opacity:0}.note-wrap.open .letter{transform:translateY(-120px);opacity:1;z-index:6}
+.final-card{background:#f8edf0;border:1px solid #efd5dd;border-radius:20px;padding:25px;width:min(440px,95%);margin:15px auto}
+.small{font-size:.82rem;color:#b28a96;margin-top:18px}
+.confetti{position:fixed;top:-20px;font-size:20px;pointer-events:none;animation:fall 4s linear forwards;z-index:20}@keyframes fall{to{transform:translateY(110vh) rotate(650deg);opacity:0}}
+@media(max-width:520px){main{padding:10px}.scene{min-height:82vh;border-radius:20px;padding:24px 17px}.balloon-area{min-height:220px}.envelope{height:190px}.note-wrap.open .letter{transform:translateY(-105px)}}
+
+/* Reference-inspired first welcome screen */
+#welcome-art{width:min(330px,82vw);height:auto;margin:4px auto 12px;display:block}
+#welcome-title{font-family:'Playfair Display',cursive;font-style:italic;font-weight:500;line-height:1.28;font-size:clamp(2rem,6vw,2.8rem);color:#a95770;margin:0 0 14px}
+#welcome-title .recipient{display:inline}
+#welcome-prompt{font-family:'Playfair Display',serif;font-size:1rem;color:#72545f;margin:8px auto 12px}
+#welcome-actions{gap:12px;margin-top:0}
+#welcome-actions .btn{min-width:100px;border-radius:10px;padding:12px 27px}
+#welcome-actions .btn.secondary{background:#dff1f0;border:1px solid #a9d7d3;color:#567d79}
+#welcome-actions .btn.yes{background:linear-gradient(135deg,#d77b91,#c65f7b)}
+#s1{background:linear-gradient(135deg,#fff8fa,#fbeaf0 55%,#fff8fa);border-color:#f3dce4}
+
+</style>
+</head>
+<body>
+<main>
+<section class="scene active" id="s1">
+<div class="kicker" style="display:none">a little something, made with love</div>
+<h1 id="welcome-title">Happy Birthday,<br><span class="recipient">Someone Special</span> 🎀 🫀</h1>
+<svg id="welcome-art" viewBox="0 0 360 270" role="img" aria-label="Two cute cartoon bears holding a birthday cake">
+  <!-- bunting -->
+  <path d="M28 45 Q180 58 332 45" fill="none" stroke="#745d55" stroke-width="2"/>
+  <g stroke="#745d55" stroke-width="1.5">
+    <path d="M38 46 L58 48 L49 67 Z" fill="#f3a6b8"/><path d="M68 49 L88 50 L78 68 Z" fill="#f5d36f"/>
+    <path d="M98 51 L118 52 L108 70 Z" fill="#9ed5cb"/><path d="M128 53 L148 54 L138 72 Z" fill="#f2a2a5"/>
+    <path d="M158 54 L178 55 L168 73 Z" fill="#b9b2e7"/><path d="M188 54 L208 55 L198 73 Z" fill="#f3d36f"/>
+    <path d="M218 53 L238 52 L228 71 Z" fill="#a8d8cf"/><path d="M248 51 L268 50 L258 69 Z" fill="#f1a8b9"/>
+    <path d="M278 49 L298 47 L288 66 Z" fill="#f2d36d"/><path d="M308 46 L328 44 L318 63 Z" fill="#a9d8cf"/>
+  </g>
+  <!-- tiny flowers and hearts -->
+  <g font-size="22"><text x="35" y="103">🌼</text><text x="294" y="108">💗</text><text x="75" y="24">✿</text><text x="264" y="28">✿</text><text x="315" y="175">♡</text><text x="28" y="185">♡</text></g>
+  <!-- left bear ears and body -->
+  <circle cx="112" cy="137" r="19" fill="#b88955" stroke="#59463e" stroke-width="3"/>
+  <circle cx="177" cy="137" r="19" fill="#b88955" stroke="#59463e" stroke-width="3"/>
+  <ellipse cx="145" cy="207" rx="61" ry="55" fill="#d9b77f" stroke="#59463e" stroke-width="3"/>
+  <circle cx="145" cy="160" r="48" fill="#d9b77f" stroke="#59463e" stroke-width="3"/>
+  <ellipse cx="145" cy="178" rx="24" ry="17" fill="#f4dfc0"/>
+  <circle cx="130" cy="162" r="4.5" fill="#493b35"/><circle cx="160" cy="162" r="4.5" fill="#493b35"/>
+  <ellipse cx="145" cy="176" rx="5" ry="4" fill="#493b35"/>
+  <circle cx="116" cy="177" r="8" fill="#ed9c9c" opacity=".7"/><circle cx="174" cy="177" r="8" fill="#ed9c9c" opacity=".7"/>
+  <path d="M137 185 Q145 193 153 185" fill="none" stroke="#59463e" stroke-width="2"/>
+  <!-- right bear -->
+  <circle cx="205" cy="137" r="18" fill="#d7e9e6" stroke="#526d68" stroke-width="3"/>
+  <circle cx="270" cy="137" r="18" fill="#d7e9e6" stroke="#526d68" stroke-width="3"/>
+  <ellipse cx="238" cy="207" rx="59" ry="55" fill="#e4f2ee" stroke="#526d68" stroke-width="3"/>
+  <circle cx="238" cy="160" r="47" fill="#e4f2ee" stroke="#526d68" stroke-width="3"/>
+  <ellipse cx="238" cy="178" rx="23" ry="16" fill="#fff"/>
+  <circle cx="223" cy="162" r="4.5" fill="#3f5753"/><circle cx="253" cy="162" r="4.5" fill="#3f5753"/>
+  <ellipse cx="238" cy="176" rx="5" ry="4" fill="#3f5753"/>
+  <circle cx="210" cy="178" r="8" fill="#efabb7" opacity=".7"/><circle cx="266" cy="178" r="8" fill="#efabb7" opacity=".7"/>
+  <path d="M230 185 Q238 192 246 185" fill="none" stroke="#526d68" stroke-width="2"/>
+  <!-- party hats -->
+  <path d="M105 123 L120 83 L137 125 Z" fill="#f5d7a0" stroke="#59463e" stroke-width="2"/>
+  <path d="M221 120 L239 82 L255 122 Z" fill="#b7d9e7" stroke="#526d68" stroke-width="2"/>
+  <circle cx="120" cy="82" r="5" fill="#e58ca4"/><circle cx="239" cy="82" r="5" fill="#e58ca4"/>
+  <!-- cake -->
+  <rect x="143" y="207" width="98" height="37" rx="8" fill="#f4b6c6" stroke="#8b6268" stroke-width="2"/>
+  <path d="M143 219 Q155 228 167 219 Q179 228 191 219 Q203 228 215 219 Q228 228 241 219" fill="none" stroke="#fff5ee" stroke-width="7"/>
+  <rect x="151" y="236" width="82" height="8" rx="3" fill="#e6a0b1"/>
+  <path d="M192 205 L192 184" stroke="#7b6657" stroke-width="4"/><path d="M192 182 Q181 171 192 158 Q204 172 192 182" fill="#f4bd55" stroke="#df8e55" stroke-width="1.5"/>
+  <text x="192" y="234" text-anchor="middle" font-size="11" font-family="serif" fill="#81515b" font-weight="bold">HAPPY B'DAY</text>
+  <!-- paws over cake -->
+  <ellipse cx="178" cy="211" rx="18" ry="10" fill="#d9b77f" stroke="#59463e" stroke-width="2"/>
+  <ellipse cx="218" cy="211" rx="18" ry="10" fill="#e4f2ee" stroke="#526d68" stroke-width="2"/>
+  <g font-size="16"><text x="82" y="250">🌼</text><text x="267" y="250">🌸</text></g>
+</svg>
+<p id="welcome-prompt">Are you excited for what's next?</p>
+<div class="actions" id="welcome-actions">
+  <button class="btn yes" onclick="go(2)">Yes</button>
+  <button class="btn secondary" onclick="welcomeNo()">No</button>
+</div>
+<div class="small">♡</div>
+</section>
+
+<section class="scene" id="s2">
+<div class="kicker">step 1 · a little fun</div><h2>Pop all 4 balloons</h2>
+<p>Tap each balloon and discover the little message hidden inside.</p>
+<div class="balloon-area" id="balloons">
+<div class="balloon" role="button" aria-label="Pop balloon" onclick="pop(this)"></div><div class="balloon" role="button" aria-label="Pop balloon" onclick="pop(this)"></div><div class="balloon" role="button" aria-label="Pop balloon" onclick="pop(this)"></div><div class="balloon" role="button" aria-label="Pop balloon" onclick="pop(this)"></div>
+</div>
+<div class="progress" id="count">0 of 4 popped</div><p id="balloonMessage" aria-live="polite">You make ordinary days feel special. 💕</p>
+<button class="btn" id="balloonNext" style="display:none" onclick="go(3)">Continue ✨</button>
+</section>
+
+<section class="scene" id="s3">
+<div class="kicker">step 2 · make a wish</div><h2>Blow the candle, make a wish 🕯️</h2>
+<p>Close your eyes for a moment and make a beautiful wish.</p>
+<div class="cake" id="cake"><span class="flame">🔥</span><br>🎂</div>
+<button class="btn" id="blow" onclick="blowCandle()">Tap to blow the candle</button>
+<p id="wishText" aria-live="polite"></p>
+</section>
+
+<section class="scene" id="s4">
+<div class="kicker">step 3 · just for you</div><h2>Your Rose Bouquet 🌹</h2>
+<p>A little bouquet to remind you how wonderful you are.</p>
+<div class="bouquet">💐</div>
+<button class="btn" onclick="go(5)">Continue 💗</button>
+</section>
+
+<section class="scene" id="s5">
+<div class="kicker">step 4 · from my heart</div><h2>A Message From My Heart</h2>
+<p>There is a little letter waiting just for you. Tap the envelope to open it.</p>
+<div class="note-wrap" id="note" onclick="openLetter()">
+<div class="letter">
+<p>Dear <span class="recipient">Someone Special</span> 💗,</p>
+<p>Happy Birthday! I hope your day is filled with smiles, laughter, and all the little things that make you happy.</p>
+<p>You are truly special, and I wish you happiness, good health, success, and beautiful memories today and always.</p>
+<p>Thank you for being you. Keep smiling and never forget how much you matter. 💕</p>
+<p>With lots of love,<br><b class="sender">Someone who cares</b></p>
+</div>
+<div class="flap"></div><div class="heartseal">💗</div>
+</div>
+<div class="small" id="letterHint">Tap the envelope to open your letter</div>
+<button class="btn" id="letterNext" style="display:none" onclick="go(6)">One last surprise…</button>
+</section>
+
+<section class="scene" id="s6">
+<div class="kicker">one last thing…</div><h2>Just for you 💞</h2>
+<div class="final-card">
+<div style="font-size:4.8rem">🐻🎀🐰</div>
+<h2 style="font-size:1.8rem">Lots of love for you!</h2>
+<p>May your life always be as lovely as your smile. Keep shining, keep dreaming, and keep being the wonderful person you are.</p>
+<div style="font-size:2rem">💗 ✨ 🎂 ✨ 💗</div>
+</div>
+<p>Happy Birthday once again! 🥳</p>
+<button class="btn" onclick="celebrate()">Replay the surprise ↻</button>
+<div class="small">This little page was made with love ♡</div>
+</section>
+</main>
+<script>
+let popped=0, candleDone=false, letterDone=false;
+function go(n){document.querySelectorAll('.scene').forEach(x=>x.classList.remove('active'));document.getElementById('s'+n).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(n===6)confetti();}
+function welcomeNo(){const p=document.getElementById('welcome-prompt');p.textContent='Aww, just one little surprise! Try again? 💗';}
+function pop(el){if(el.classList.contains('popped'))return;el.classList.add('popped');popped++;document.getElementById('count').textContent=popped+' of 4 popped';const msgs=['You bring happiness wherever you go. 💗','You deserve all the good things. 🌷','Never stop smiling. ✨','You are one of a kind. 💕'];document.getElementById('balloonMessage').textContent=msgs[popped-1];if(popped===4){document.getElementById('balloonNext').style.display='inline-block';document.getElementById('balloonMessage').textContent='Surprise! You are loved more than words can say. 💖';confetti();}}
+function blowCandle(){if(candleDone)return;candleDone=true;document.getElementById('cake').classList.add('out');document.getElementById('blow').textContent='Candle blown!';document.getElementById('wishText').textContent='✨ May your wish come true! ✨';setTimeout(()=>{const b=document.createElement('button');b.className='btn';b.textContent='Continue 💗';b.onclick=()=>go(4);document.getElementById('s3').appendChild(b)},450);}
+function openLetter(){if(letterDone)return;letterDone=true;document.getElementById('note').classList.add('open');document.getElementById('letterHint').textContent='A little message, from the heart 💌';document.getElementById('letterNext').style.display='inline-block';}
+function confetti(){for(let i=0;i<35;i++){let e=document.createElement('span');e.className='confetti';e.textContent=['💗','💕','✨','🌸','🎉'][Math.floor(Math.random()*5)];e.style.left=Math.random()*100+'vw';e.style.animationDelay=Math.random()*1.5+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),5500);}}
+function celebrate(){popped=0;candleDone=false;letterDone=false;document.querySelectorAll('.balloon').forEach(x=>x.classList.remove('popped'));document.getElementById('count').textContent='0 of 4 popped';document.getElementById('balloonNext').style.display='none';document.getElementById('cake').classList.remove('out');document.getElementById('blow').textContent='Tap to blow the candle';document.getElementById('wishText').textContent='';document.querySelectorAll('#s3 .btn:not(#blow)').forEach(x=>x.remove());document.getElementById('note').classList.remove('open');document.getElementById('letterNext').style.display='none';go(1);}
+</script>
+</body></html>
